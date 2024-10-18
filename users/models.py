@@ -10,7 +10,7 @@ class User(AbstractUser):
     phone = models.CharField(max_length=35, verbose_name='telephone_number', **NULLABLE)
     telegram = models.CharField(max_length=150, verbose_name='Telegram_username', **NULLABLE)
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
     def __str__(self):
