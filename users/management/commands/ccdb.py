@@ -11,12 +11,8 @@ class Command(BaseCommand):
     try:
         conn = pyodbc.connect(connectionString)
         conn.autocommit = True
-        conn.execute(fr'CREATE DATABASE Django_project;')
+        conn.execute(fr'CREATE DATABASE {DATABASE};')
     except pyodbc.ProgrammingError as ex:
         print(ex)
     else:
-        conn.execute(fr'CREATE DATABASE Django_project;')
         print('База данных создана!')
-    finally:
-        conn.close()
-
