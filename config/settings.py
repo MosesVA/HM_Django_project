@@ -144,10 +144,10 @@ STATICFILES_DIRS = (
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = (
-    BASE_DIR / 'media',
+    BASE_DIR / 'media'
 )
 
-"""Поскольку MEDIA_URL определен как '/media/', то к config.urls.py добавляется следующа стррока
+"""Поскольку MEDIA_URL определен как '/media/', то к config.urls.py добавляется следующа строка
 + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)"""
 
 # Default primary key field type
