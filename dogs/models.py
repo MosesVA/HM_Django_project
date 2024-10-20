@@ -2,6 +2,7 @@ from django.db import models
 from users.models import NULLABLE
 
 class Category(models.Model):
+    """Модель 'Категория' собак"""
     name = models.CharField(max_length=100, verbose_name='breed')
     description = models.CharField(max_length=1000, verbose_name='description')
 
@@ -14,6 +15,7 @@ class Category(models.Model):
 
 
 class Dog(models.Model):
+    """Модель 'Собака'"""
     name = models.CharField(max_length=250, verbose_name='dog_name')
     # category = models.CharField(max_length=100, verbose_name='breed')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='breed')

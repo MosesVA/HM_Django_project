@@ -7,6 +7,7 @@ from dogs.forms import DogForm
 
 
 def index(request):
+    """Отрисовка главной страницы сайта"""
     context = {
         'objects_list': Category.objects.all()[:3],
         'title': 'Питомник - Главная'
@@ -15,6 +16,7 @@ def index(request):
 
 
 def categories(request):
+    """Отрисовка страницы со всеми категориями собак"""
     context = {
         'objects_list': Category.objects.all(),
         'title': 'Питомник - Все наши породы'
@@ -23,6 +25,7 @@ def categories(request):
 
 
 def category_dogs(request, pk):
+    """Отрисовка страницы с собаками конкретной категории"""
     category_item = Category.objects.get(pk=pk)
     context = {
         'objects_list': Dog.objects.filter(category_id=pk),
@@ -33,6 +36,7 @@ def category_dogs(request, pk):
 
 
 def dogs_list_view(request):
+    """Отрисовка страницы со всеми собаками"""
     context = {
         'objects_list': Dog.objects.all(),
         'title': 'Питомник - Все наши собаки',
@@ -41,6 +45,7 @@ def dogs_list_view(request):
 
 
 def dog_create_view(request):
+    """Отрисовка страницы создания собаки"""
     if request.method == 'POST':
         form = DogForm(request.POST, request.FILES)
         if form.is_valid():
@@ -50,14 +55,16 @@ def dog_create_view(request):
 
 
 def dog_detail_view(request, pk):
+    """Отрисовка страницы с подробностями о собаке"""
     context = {
         'object': Dog.objects.get(pk=pk),
-        'title': 'Вы выбрали данного питомца',
+        'title': 'Информация',
     }
     return render(request, 'dogs/detail.html', context)
 
 
 def dog_update_view(request, pk):
+    """Отрисовка страницы с обновлением информации о собаке"""
     # dog_object = Dog.objects.get(pk=pk)
     dog_object = get_object_or_404(Dog, pk=pk)
     if request.method == 'POST':
@@ -73,6 +80,7 @@ def dog_update_view(request, pk):
 
 
 def dog_delete_view(request, pk):
+    """Отрисовка страницы удаления собаки"""
     dog_object = get_object_or_404(Dog, pk=pk)
     if request.method == 'POST':
         dog_object.delete()
