@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Главная</title>
-</head>
-<body>
-<div>Главная</div>
+{% extends 'dogs/base.html' %}
 
-</body>
-</html>
+{% block content %}
+<div class="row">
+    {% for object in objects_list %}
+    {% include 'dogs/includes/inc_category.html' with object=object %}
+    {% endfor %}
+</div>
+
+{% endblock %}
