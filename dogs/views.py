@@ -65,7 +65,7 @@ def dog_update_view(request, pk):
         if form.is_valid():
             dog_object = form.save()
             dog_object.save()
-            return HttpResponseRedirect(reverse('dogs:detail_dogs', args={pk: pk}))
+            return HttpResponseRedirect(reverse('dogs:detail_dog', args={pk: pk}))
     return render(request, 'dogs/update.html', {
         'object': dog_object,
         'form': DogForm(instance=dog_object)
