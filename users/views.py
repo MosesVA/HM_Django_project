@@ -1,8 +1,9 @@
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, reverse
 from users.models import User
-from users.forms import UserRegisterForm, UserLoginForm
+from users.forms import UserRegisterForm, UserLoginForm, UserForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 
 def user_register_view(request):
@@ -31,3 +32,18 @@ def user_login_view(request):
     else:
         form = UserLoginForm()
     return render(request, 'users/login_user.html', {'form': form})
+
+
+@login_required
+def user_profile_view(request):
+    user_object = request.user
+    if user_object.first_name:
+        user_name = user_object.first_name
+    else:
+        user_name = 'Anonymous'
+    context = {
+        # 'user_object': user_object,
+        'title': f'Ваш профиль, {user_name}',
+        # 'form': UserForm(instance=user_object)
+    }
+    return render(request, 'users/user_profile_read_only.html', context)
