@@ -1,6 +1,7 @@
 from django.http import HttpResponseRedirect, HttpResponse
+from django.contrib import messages
 from django.shortcuts import render, reverse, redirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 
 from users.forms import UserRegisterForm, UserLoginForm, UserUpdateForm
@@ -64,6 +65,26 @@ def user_update_view(request):
         'form': UserUpdateForm(instance=user_object)
     }
     return render(request, 'users/update_user.html', context)
+
+
+@login_required
+def user_change_password_view(request):
+    user_object = request.user
+    if request.method == 'POST':
+        form = UserPasswordChangeForm(user_object, request.POST)
+        if form.is_valid():
+            user_object = form.save()
+            update_session_auth_hash(request, user_object)
+            messages.success(request, 'Пароль был успешно изменен!')
+            return HttpResponseRedirect(reverse('users:profile_user'))
+        else:
+            messages.error(request, 'Не удалось изменить пароль!')
+            form = UserPasswordChangeForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'users/user_change_password.html', context)
+
 
 
 def user_logout_view(request):
