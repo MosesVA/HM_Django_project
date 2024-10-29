@@ -6,6 +6,8 @@ from django.contrib import messages
 from django.shortcuts import render, reverse, redirect
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import PasswordChangeView
+from django.urls import reverse_lazy
 
 from users.forms import UserRegisterForm, UserLoginForm, UserUpdateForm, UserPasswordChangeForm
 from users.services import send_register_mail, send_new_password
@@ -88,6 +90,12 @@ def user_change_password_view(request):
         'form': form
     }
     return render(request, 'users/change_password_user.html', context)
+
+
+# class UserPasswordChangeView(PasswordChangeView):
+#     form_class = UserPasswordChangeForm
+#     success_url = reverse_lazy('users:profile_user')
+#     template_name = 'users/change_password_user.html'
 
 
 def user_logout_view(request):
