@@ -18,4 +18,3 @@ def send_new_password(email, new_password):
         from_email=settings.EMAIL_HOST_USER,
         recipient_list=[email]
     )
-    # alskdpoqwd
